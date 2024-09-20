@@ -1,0 +1,218 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 0px solid #ddd;
+            margin: 5px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 16px;
+        }
+
+
+        textarea {
+            height: 300px;
+        }
+
+        button {
+            margin: 20px 0; /* Add space above and below the button */
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h3>EDU Story Creation App</h3>
+
+        <p>Powered by Azure Open AI</p>
+        <form method="post">
+
+            <table class="center">
+                <tbody>
+                    <tr>
+                        <td><label for="booktype">Choose your favorite book type: </label></td>
+                        <td>
+                            <select name="bookType">
+                                <option value="">Select Book Type</option>
+                                <option value="Fantacy">Fantacy</option>
+                                <option value="Poetry">Poetry</option>
+                                <option value="Science Fiction">Science Fiction</option>
+                                <option value="NonFiction">NonFiction</option>
+                                <option value="Folklore">Folklore</option>
+                                <option value="Biography">Biography</option>
+                            </select>
+                        </td>
+
+                        <td><label for="lGender">Story is for: </label></td>
+                        <td>
+                            <select name="sGender">
+                                <option value="">Select for who</option>
+                                <option value="girl">girl</option>
+                                <option value="boy">boy</option>
+                            </select>
+                        </td>
+
+                        <td><label for="lSituation">Situation: </label></td>
+                        <td>
+                            <select name="sSituation">
+                                <option value="">Select the situation</option>
+                                <option value="traveltime">travel time</option>
+                                <option value="daytime">day time</option>
+                            </select>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="item">Choose the items to include: </label>
+                        </td>
+                        <td>
+                            <select id="SelectItems" multiple="multiple" name="SelectItems">
+                                <option value="Sun">Sun</option>
+                                <option value="Moon">Moon</option>
+                                <option value="Summer">Summer</option>
+                                <option value="Butterfly">Butterfly</option>
+                                <option value="Else">Elsa</option>
+                                <option value="Anna">Anna</option>
+                                <option value="Stars">Stars</option>
+                                <option value="Spring">Spring</option>
+                                <option value="Fall">Fall</option>
+                                <option value="Winter">Winter</option>
+                                <option value="Christmas">Christmas</option>
+                                <option value="Santa">Santa</option>
+                                <option value="Albert Einstein">Albert Einstein</option>
+                            </select>
+                        </td>
+
+                        <td><label for="lPages">No. of Pages: </label></td>
+                        <td>
+                            <select name="sPages">
+                                <option value="">Select the size</option>
+                                <option value="3">3</option>
+                                <option value="4 time">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" asp-page-handler="GenerateBook" class="btn btn-outline-info" id="btnGenerateWebName">Generate E-Book</button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+            <table class="center" style="width:50%">
+                <tbody>
+
+
+                    <tr>
+                        <td>
+                            <label for="Book" class="custom-label">Book Content</label>
+                        </td>
+                        <td>
+                            <textarea autocomplete="off" class="textarea form-control" style="width: 100%; max-width: 100%;" id="txtStoryData">@ViewData["confirmation"]</textarea>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p>Audio will start after the page finishes loading</p>
+
+                           
+
+                            <audio id="audioPlayer" style="display:none" autoplay="autoplay">
+                                <source id="audioSrc" src=@ViewData["audioPath"] type="audio/mp3">
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+
+                            
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="Image 1" class="custom-label">Image Page 1</label>
+                        </td>
+                        <td>
+                            <div style="padding:10px;">
+
+                                <img for="img1" src=@ViewData["image1"] alt="Sample Image" width="300px" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="Image 2" class="custom-label">Image Page 2</label>
+                        </td>
+                        <td>
+                            <div style="padding:10px;">
+
+                                <img for="img2" src=@ViewData["image2"] alt="Sample Image" width="300px" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="Image 3" class="custom-label">Image Page 3</label>
+                        </td>
+                        <td>
+                            <div style="padding:10px;">
+
+                                <img for="img3" src=@ViewData["image3"] alt="Sample Image" width="300px" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="Image 4" class="custom-label">Image Page 4</label>
+                        </td>
+                        <td>
+                            <div style="padding:10px;">
+
+                                <img for="img4" src=@ViewData["image4"] alt="Sample Image" width="300px" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="Image 5" class="custom-label">Image Page 5</label>
+                        </td>
+                        <td>
+                            <div style="padding:10px;">
+
+                                <img for="img5" src=@ViewData["image5"] alt="Sample Image" width="300px" />
+                            </div>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </form>
+    </div>
+
+</body>
